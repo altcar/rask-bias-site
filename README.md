@@ -29,6 +29,23 @@ npm run dev        # wrangler dev
 npm run deploy     # wrangler deploy
 ```
 
+## Automatic deployment
+
+Pushes to `main` build and deploy through Cloudflare Workers Builds (Worker `rask-bias`,
+connected to this repository):
+
+| Setting | Value |
+|---|---|
+| Production branch | `main` |
+| Root directory | `/` |
+| Build command | `npm ci && npm run ci` |
+| Deploy command | `npx wrangler deploy` |
+| `WRANGLER_VERSION` | `4.160.0` (pinned build variable) |
+| Build caching | on |
+
+`npm run ci` = download the int8 MiniLM → copy WASM/fonts → bundle the lab. Nothing large is
+committed; the build fetches it.
+
 `npm run data` / `npm run examples` read the RASK-bias artefacts from `data/source/` (see
 `data/README.md`) and the Kaggle résumé CSV from `data/Resume.csv` (or `RASK_RESUME_CSV`).
 Everything they emit is committed under `public/data/`, so a deploy does not need them.
